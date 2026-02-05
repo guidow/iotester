@@ -1,19 +1,19 @@
 #include "bufferfiller.h"
 
-#include <iostream> // Remove
+#include <iostream>
 
 BufferFiller::BufferFiller(BufferQueue& bufferqueue)
     : m_prng(m_random_source())
     , m_queue(bufferqueue)
-    {};
+    {}
+
 BufferFiller::BufferFiller(const BufferFiller&& other)
     : m_prng(other.m_prng)
     , m_queue(other.m_queue)
-    {};
+    {}
 
 void BufferFiller::operator()()
 {
-    std::cout << "In thread" << std::endl;
     try {
         while(true)
         {
@@ -33,6 +33,4 @@ void BufferFiller::fill_buffer(std::shared_ptr<HashedBuffer> buffer)
         dword = distrib(m_prng);
 
     buffer->calculate_hash();
-
-    std::cout << buffer->digest_str() << "\n";
 }
