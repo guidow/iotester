@@ -13,6 +13,6 @@ std::string HashedBuffer::digest_str() const
 void HashedBuffer::calculate_hash()
 {
     CryptoPP::SHA256 hash;
-    hash.Update((const CryptoPP::byte*) m_bytes.data(), m_bytes.size());
+    hash.Update((const CryptoPP::byte*) m_bytes.data(), size());
     hash.Final((CryptoPP::byte*) &m_digest[0]);
 }

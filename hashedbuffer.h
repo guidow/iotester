@@ -14,7 +14,7 @@ public:
     typedef std::array<uint8_t, sha256_digest_size> digestbuffertype;
     typedef std::array<uint32_t, 256 * 1024> buffertype;
 
-    std::size_t size() const {return m_bytes.size();}
+    std::size_t size() const {return m_bytes.size() * sizeof(uint32_t);}
     char* data() {return (char *)m_bytes.data();}
 
     void calculate_hash();
