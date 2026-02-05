@@ -12,8 +12,19 @@ BufferFiller::BufferFiller(const BufferFiller&& other)
     , m_queue(other.m_queue)
     {}
 
+class RegistrationGuard {
+public:
+    RegistrationGuard(BufferQueue& bq)
+    : m_bq(bq)
+    {m_bq.register_buffer_filler();}
+    ~RegistrationGuard() {m_bq.unregister_buffer_filler();}
+private:
+    BufferQueue& m_bq;
+};
+
 void BufferFiller::operator()()
 {
+    RegistrationGuard registration(m_queue);
     try {
         while(true)
         {
@@ -23,7 +34,15 @@ void BufferFiller::operator()()
         }
     }
     catch(BufferQueue::Eof& eof)
-        {}
+    {}
+    catch(std::runtime_error &exception)
+    {
+        std::cerr << "Caught exception in BufferFiller: " << exception.what() << std::endl;
+    }
+    catch(...)
+    {
+        std::cerr << "Caught unknown exception in BufferFiller" << std::endl;
+    }
 };
 
 void BufferFiller::fill_buffer(std::shared_ptr<HashedBuffer> buffer)
