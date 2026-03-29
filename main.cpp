@@ -5,6 +5,7 @@
 #include <fstream>
 #include <thread>
 #include <filesystem>
+#include <chrono>
 
 #include "bufferqueue.h"
 #include "bufferfiller.h"
@@ -14,6 +15,8 @@ namespace fs = std::filesystem;
 
 int main(int argc, char **argv) {
     BufferQueue bufferqueue;
+
+    auto begin_write = std::chrono::high_resolution_clock::now();
 
     std::vector<std::thread> threads;
     const unsigned int num_cores = std::thread::hardware_concurrency();
@@ -27,6 +30,9 @@ int main(int argc, char **argv) {
     for(auto& thread : threads)
         thread.join();
     writer_thread.join();
+
+    auto end_write = std::chrono::high_resolution_clock::now();
+    std::cout << "Done writing test files after " << end_write - begin_write << std::endl;
 
     fs::path working_dir = fs::path(".") / "iotest";
     std::size_t checksum_failures = 0;
@@ -51,6 +57,9 @@ int main(int argc, char **argv) {
             fs::remove(dentry.path());
         }
     }
+
+    auto end_read = std::chrono::high_resolution_clock::now();
+    std::cout << "Done reading files after " << end_read - end_write << std::endl;
 
     return checksum_failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
