@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <thread>
 #include <filesystem>
 
@@ -27,7 +28,29 @@ int main(int argc, char **argv) {
         thread.join();
     writer_thread.join();
 
-    std::cout << "Done" << std::endl;
+    fs::path working_dir = fs::path(".") / "iotest";
+    std::size_t checksum_failures = 0;
+    for(auto const& dentry : fs::directory_iterator{working_dir})
+    {
+        HashedBuffer filecontent;
+        std::ifstream file(dentry.path());
+        if(!file.good())
+        {
+            std::cerr << "Could not open " << dentry.path() << " for reading" << std::endl;
+            return EXIT_FAILURE;
+        }
+        file.read(filecontent.data(), filecontent.size());
+        filecontent.calculate_hash();
+        if(dentry.path().filename() != filecontent.digest_str())
+        {
+            std::cerr << "Wrong SHA-256 sum for " << dentry.path() << ": " << filecontent.digest_str() << std::endl;
+            checksum_failures++;
+        }
+        else
+        {
+            fs::remove(dentry.path());
+        }
+    }
 
-    return 0;
+    return checksum_failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
