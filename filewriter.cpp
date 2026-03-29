@@ -34,7 +34,7 @@ void FileWriter::operator()()
             if(!outfile.good())
                 throw std::runtime_error("Could not open " + outpath.string());
             outfile.write(buffer->data(), buffer->size());
-            if(buffers_submitted < 1000)
+            if(buffers_submitted < 10000)
             {
                 m_queue.post_empty_buffer(buffer);
                 buffers_submitted++;
