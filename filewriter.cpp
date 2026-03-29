@@ -6,7 +6,6 @@
 
 void FileWriter::operator()()
 {
-    std::cout << "In file writer thread" << std::endl;
     if(!fs::exists(m_path))
         throw std::runtime_error("Path " + m_path.string() + " does not exist");
 
