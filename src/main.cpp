@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     auto end_write = std::chrono::high_resolution_clock::now();
     std::cout << "Done writing test files after " << end_write - begin_write << std::endl;
 
-    fs::path working_dir = fs::path(".") / "iotest";
+    fs::path working_dir = fs::path(argv[1]) / "iotest";
     std::size_t checksum_failures = 0;
     for(auto const& dentry : fs::directory_iterator{working_dir})
     {
