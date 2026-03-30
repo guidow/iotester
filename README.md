@@ -2,11 +2,13 @@
 
 A simple test suite to verify the basic functionality of filesystems and block storage devices. Put shortly, it tests whether you get the same data back that you have written onto a device.
 
-At the moment, only a very limited test for filesystems is implemented. This program will write 1 MiB sized files filled with random data to disk, using the SHA-256 checksum of the random data as the filename. After the target number of files have been written, it will read them back and check whether the SHA256 sum from their names still correspond to their contents. At the moment, the number of files is hard coded to 10000, while the directory is hardcoded as the subdirectory "iotest" of the current working directory.
+At the moment, only a very limited test for filesystems is implemented. This program will write 1 MiB sized files filled with random data to disk, using the SHA-256 checksum of the random data as the filename. After the target number of files have been written, it will read them back and check whether the SHA256 sum from their names still correspond to their contents. Test files with no corruption will be deleted again after checking, files with read errors or corruption will be left in place.
+
+The program will write test files until the filesystem has less than 10% free space left, while the directory is hardcoded as the subdirectory "iotest" of the current working directory.
 
 ## Purpose
 
-The intended use of this suite is to allow you to find data corrupting bugs in filesystems or block device drivers, find faulty storage devices and identify fraudulent devices that advertise more storage to the OS than they can actually store.
+The intended use of this suite is to allow users to find data corrupting bugs in filesystems or block device drivers, find faulty storage devices and identify fraudulent devices that advertise more storage to the OS than they can actually store.
 
 ## License
 

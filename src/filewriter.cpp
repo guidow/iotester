@@ -22,22 +22,21 @@ void FileWriter::operator()()
 
     std::cout << "Writing to path " << working_dir << std::endl;
 
-    std::size_t buffers_submitted = 32 *2;
-
     try
     {
         while(true)
         {
+            auto fs_space_info = fs::space(working_dir);
+
             auto buffer = m_queue.get_buffer_to_write();
             fs::path outpath = working_dir / buffer->digest_str();
             std::ofstream outfile(outpath, std::ios::out | std::ios::binary);
             if(!outfile.good())
                 throw std::runtime_error("Could not open " + outpath.string());
             outfile.write(buffer->data(), buffer->size());
-            if(buffers_submitted < 10000)
+            if(fs_space_info.free > fs_space_info.capacity * 0.1)
             {
                 m_queue.post_empty_buffer(buffer);
-                buffers_submitted++;
             }
             else
             {
