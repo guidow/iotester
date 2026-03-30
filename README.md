@@ -8,13 +8,14 @@ At the moment, only a very limited test for filesystems is implemented. This pro
 
 - Crypto++ 8.9.0+ and corresponding development files
 - CMake 3.10+
+- PkgConfig
 - C++ compiler supporting C++20
 
 Development has been done against Crypto++ 8.9.0, but most other non-ancient versions will likely work.
 
 ## Building
 
-This is a standard cmake projects with little to no unusual stuff, so just do the usual:
+This is a standard cmake project with little to no unusual stuff, so just do the usual:
 
 ```
 mkdir build
