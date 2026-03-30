@@ -1,3 +1,9 @@
+/*
+ * Copyright 2026 Guido Winkelmann
+ *
+ * Licensed under the terms of the GNU General Public License version 3
+ */
+
 #include <cstdint>
 #include <string>
 #include <vector>

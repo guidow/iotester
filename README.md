@@ -8,6 +8,10 @@ At the moment, only a very limited test for filesystems is implemented. This pro
 
 The intended use of this suite is to allow you to find data corrupting bugs in filesystems or block device drivers, find faulty storage devices and identify fraudulent devices that advertise more storage to the OS than they can actually store.
 
+## License
+
+This software is licensed under the terms of the GNU General Public License version 3.
+
 ## Requirements
 
 - Crypto++ 8.9.0+ and corresponding development files

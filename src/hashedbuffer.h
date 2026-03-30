@@ -1,3 +1,9 @@
+/*
+ * Copyright 2026 Guido Winkelmann
+ *
+ * Licensed under the terms of the GNU General Public License version 3
+ */
+
 #pragma once
 
 #include <cstdint>
