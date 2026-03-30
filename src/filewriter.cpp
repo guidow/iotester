@@ -16,12 +16,6 @@ void FileWriter::operator()()
 
     std::cout << "Writing to path " << working_dir << std::endl;
 
-    for(int i = 0 ; i < 32 ; ++i)
-    {
-        m_queue.post_empty_buffer(std::make_shared<HashedBuffer>());
-        m_queue.post_empty_buffer(std::make_shared<HashedBuffer>());
-    }
-
     std::size_t buffers_submitted = 32 *2;
 
     try
