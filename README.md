@@ -4,7 +4,7 @@ A simple test suite to verify the basic functionality of filesystems and block s
 
 At the moment, only a very limited test for filesystems is implemented. This program will write 1 MiB sized files filled with random data to disk, using the SHA-256 checksum of the random data as the filename. After the target number of files have been written, it will read them back and check whether the SHA256 sum from their names still correspond to their contents. Test files with no corruption will be deleted again after checking, files with read errors or corruption will be left in place.
 
-The program will write test files until the filesystem has less than 10% free space left, while the directory is hardcoded as the subdirectory "iotest" of the current working directory.
+The program will write test files until the filesystem has less than 10% free space left. This is planned to be configurable in the future.
 
 ## Purpose
 
@@ -46,9 +46,9 @@ The iotester binary will be in the "src" subdirectory.
 
 ## Usage
 
-```iotester```
+```iotester <directory>```
 
-At the moment, the program takes no options or arguments and will start working in the current working directory.
+Iotester will create a subdirectory "iotest" in the directory <directory> if it does not exist yet and write its test files in there. That directory is not supposed to be used for other purposes and should have no other files in it.
 
 ### Testing block devices
 

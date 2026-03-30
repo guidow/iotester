@@ -20,10 +20,13 @@
 namespace fs = std::filesystem;
 
 int main(int argc, char **argv) {
+    if(argc < 2) {
+        std::cerr << "Usage error: Need target directory" << std::endl;
+        return EXIT_FAILURE;
+    }
+
     BufferQueue bufferqueue;
-
     auto begin_write = std::chrono::high_resolution_clock::now();
-
     std::vector<std::thread> threads;
     const unsigned int num_cores = std::thread::hardware_concurrency();
     for(unsigned int i = 0 ; i < num_cores ; ++i)
@@ -35,7 +38,7 @@ int main(int argc, char **argv) {
 
     std::thread writer_thread(FileWriter(
         bufferqueue,
-        fs::path(".")));
+        fs::path(argv[1])));
 
     for(auto& thread : threads)
         thread.join();
