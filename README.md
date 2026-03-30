@@ -23,6 +23,8 @@ cmake ..
 make
 ```
 
+The iotester binary will be in the "src" subdirectory.
+
 ## Usage
 
 ```iotester```

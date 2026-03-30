@@ -60,6 +60,7 @@ int main(int argc, char **argv) {
 
     auto end_read = std::chrono::high_resolution_clock::now();
     std::cout << "Done reading files after " << end_read - end_write << std::endl;
+    std::cout << checksum_failures << " checksum failures after reading data back" << std::endl;
 
     return checksum_failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
