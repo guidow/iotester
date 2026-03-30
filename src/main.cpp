@@ -16,14 +16,12 @@
 #include "bufferqueue.h"
 #include "bufferfiller.h"
 #include "filewriter.h"
+#include "iotesteroptions.h"
 
 namespace fs = std::filesystem;
 
 int main(int argc, char **argv) {
-    if(argc < 2) {
-        std::cerr << "Usage error: Need target directory" << std::endl;
-        return EXIT_FAILURE;
-    }
+    IotesterOptions options{argc, argv};
 
     BufferQueue bufferqueue;
     auto begin_write = std::chrono::high_resolution_clock::now();
@@ -38,7 +36,7 @@ int main(int argc, char **argv) {
 
     std::thread writer_thread(FileWriter(
         bufferqueue,
-        fs::path(argv[1])));
+        options.test_directory()));
 
     for(auto& thread : threads)
         thread.join();
@@ -47,7 +45,7 @@ int main(int argc, char **argv) {
     auto end_write = std::chrono::high_resolution_clock::now();
     std::cout << "Done writing test files after " << end_write - begin_write << std::endl;
 
-    fs::path working_dir = fs::path(argv[1]) / "iotest";
+    fs::path working_dir = options.test_directory() / "iotest";
     std::size_t checksum_failures = 0;
     for(auto const& dentry : fs::directory_iterator{working_dir})
     {
