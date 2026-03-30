@@ -6,9 +6,9 @@ At the moment, only a very limited test for filesystems is implemented. This pro
 
 ## Requirements
 
-Crypto++ 8.9.0+ and corresponding development files
-CMake 3.10+
-C++ compiler supporting C++20
+- Crypto++ 8.9.0+ and corresponding development files
+- CMake 3.10+
+- C++ compiler supporting C++20
 
 Development has been done against Crypto++ 8.9.0, but most other non-ancient versions will likely work.
 
