@@ -52,7 +52,7 @@ Iotester will create a subdirectory "iotest" in the directory `<directory>` if i
 
 ### Options
 
-- --version|-v: Print version and exit
+- `--version|-v`: Print version and exit
 
 ### Testing block devices
 
