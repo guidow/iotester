@@ -19,13 +19,13 @@ This software is licensed under the terms of the GNU General Public License vers
 - Crypto++ 8.9.0+ and corresponding development files
 - CMake 3.10+
 - PkgConfig
-- C++ compiler supporting C++20
+- C++ compiler supporting C++ 17
 
 Development has been done against Crypto++ 8.9.0, but most other non-ancient versions will likely work.
 
 ## Platform
 
-This software should work on any reasonably recent Linux platform, although in some cases you may have to install a C++ compiler supporting C++ 20 first.
+This software should work on any reasonably recent Linux platform, although in some cases you may have to install a C++ compiler supporting C++ 17 first.
 
 It will probably also run on most BSDs and on MacOS, but this has never been tested. If you try this, please report your findings.
 
