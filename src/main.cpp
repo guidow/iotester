@@ -17,6 +17,7 @@
 #include "bufferfiller.h"
 #include "filewriter.h"
 #include "iotesteroptions.h"
+#include "formatting.h"
 
 namespace fs = std::filesystem;
 
@@ -44,7 +45,8 @@ int main(int argc, char **argv) {
     writer_thread.join();
 
     auto end_write = std::chrono::high_resolution_clock::now();
-    std::cout << "Done writing test files after " << end_write - begin_write << std::endl;
+    std::cout << "Done writing test files after ";
+    format_time(std::cout, end_write - begin_write) << std::endl;
 
     fs::path working_dir = options.test_directory() / "iotest";
     std::size_t checksum_failures = 0;
@@ -71,7 +73,8 @@ int main(int argc, char **argv) {
     }
 
     auto end_read = std::chrono::high_resolution_clock::now();
-    std::cout << "Done reading files after " << end_read - end_write << std::endl;
+    std::cout << "Done reading files after ";
+    format_time(std::cout, end_read - end_write) << std::endl;
     std::cout << checksum_failures << " checksum failures after reading data back" << std::endl;
 
     return checksum_failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;

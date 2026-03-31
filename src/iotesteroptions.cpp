@@ -58,5 +58,5 @@ void IotesterOptions::print_usage()
     std::cerr << "Usage:\n";
     std::cerr << "iotester [options] <directory>\n\n";
     std::cerr << "Options:\n";
-    std::cerr << "--version|-v:\t\t Print version and exit" << std::endl;
+    std::cerr << "--version|-v:\t\tPrint version and exit" << std::endl;
 }
