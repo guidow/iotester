@@ -21,6 +21,7 @@
 namespace fs = std::filesystem;
 
 int main(int argc, char **argv) {
+    try {
     IotesterOptions options{argc, argv};
 
     BufferQueue bufferqueue;
@@ -74,4 +75,9 @@ int main(int argc, char **argv) {
     std::cout << checksum_failures << " checksum failures after reading data back" << std::endl;
 
     return checksum_failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
+    }
+    catch(std::runtime_error &e) {
+        std::cerr << "iotester: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 }
