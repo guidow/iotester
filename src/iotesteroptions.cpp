@@ -6,6 +6,10 @@
 
 #include "iotesteroptions.h"
 
+#include <vector>
+
+#include "version.h"
+
 IotesterOptions::IotesterOptions(int argc, char **argv)
 {
     if(argc < 2) {
@@ -16,11 +20,43 @@ IotesterOptions::IotesterOptions(int argc, char **argv)
         throw std::runtime_error("Implausibly large number of command line arguments");
     }
 
-    m_test_directory = argv[1];
+    for(int i = 1 ; i < argc ; ++i) {
+        std::string argument = argv[i];
+        std::vector<char> short_args;
+
+        if(argument.length() > 0 && argument[0] != '-') {
+            m_test_directory = argv[1]; }
+        else {
+            if(argument.length() > 1 && argument[0] == '-' && argument[1] != '-') { // If current arg is short args
+                for(auto i = argument.cbegin() + 1 ; i != argument.end() ; ++i) {
+                    short_args.push_back(*i);
+                }
+            }
+            else {
+                short_args.push_back('-');
+            }
+            for(const auto short_arg : short_args) {
+                if(short_arg == 'V' || argument == "--version") {
+                    std::cout << "Iotester version " << IOTESTER_VERSION << std::endl;
+                    exit(EXIT_SUCCESS);
+                }
+                else {
+                    if(short_arg == '-') {
+                        throw std::runtime_error("Unrecognized argument: " + argument);
+                    }
+                    else {
+                        throw std::runtime_error(std::string("Unrecognized short argument: ") + short_arg);
+                    }
+                }
+            }
+        }
+    }
 }
 
 void IotesterOptions::print_usage()
 {
     std::cerr << "Usage:\n";
-    std::cerr << "iotester <directory>" << std::endl;
+    std::cerr << "iotester [options] <directory>\n\n";
+    std::cerr << "Options:\n";
+    std::cerr << "--version|-v:\t\t Print version and exit" << std::endl;
 }

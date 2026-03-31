@@ -46,9 +46,13 @@ The iotester binary will be in the "src" subdirectory.
 
 ## Usage
 
-```iotester <directory>```
+```iotester [options] <directory>```
 
 Iotester will create a subdirectory "iotest" in the directory `<directory>` if it does not exist yet and write its test files in there. That directory is not supposed to be used for other purposes and should have no other files in it.
+
+### Options
+
+- --version|-v: Print version and exit
 
 ### Testing block devices
 
