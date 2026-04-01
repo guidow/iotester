@@ -48,9 +48,11 @@ IotesterOptions::IotesterOptions(int argc, char **argv)
                 }
                 else {
                     if(short_arg == '-') {
+                        print_usage();
                         throw std::runtime_error("Unrecognized argument: " + argument);
                     }
                     else {
+                        print_usage();
                         throw std::runtime_error(std::string("Unrecognized short argument: ") + short_arg);
                     }
                 }
