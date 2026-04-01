@@ -53,6 +53,10 @@ Iotester will create a subdirectory "iotest" in the directory `<directory>` if i
 ### Options
 
 - `--version|-v`: Print version and exit
+- `--no-write`: Don't write any test files
+- `--no-check`: Don't check and delete the test files written
+
+Using the `--no-check` and `--no-write` options allows the user to write the test files at one time and check them at a later time of their choosing.
 
 ### Testing block devices
 

@@ -40,6 +40,12 @@ IotesterOptions::IotesterOptions(int argc, char **argv)
                     std::cout << "Iotester version " << IOTESTER_VERSION << std::endl;
                     exit(EXIT_SUCCESS);
                 }
+                else if(argument == "--no-write") {
+                    m_write_files = false;
+                }
+                else if(argument == "--no-check") {
+                    m_check_files = false;
+                }
                 else {
                     if(short_arg == '-') {
                         throw std::runtime_error("Unrecognized argument: " + argument);
@@ -58,5 +64,7 @@ void IotesterOptions::print_usage()
     std::cerr << "Usage:\n";
     std::cerr << "iotester [options] <directory>\n\n";
     std::cerr << "Options:\n";
-    std::cerr << "--version|-v:\t\tPrint version and exit" << std::endl;
+    std::cerr << "--version|-v:\t\tPrint version and exit\n";
+    std::cerr << "--no-write:\t\tDo not write any test files\n";
+    std::cerr << "--no-check:\t\tDo not check or delete any test files" << std::endl;
 }
