@@ -25,7 +25,7 @@ IotesterOptions::IotesterOptions(int argc, char **argv)
         std::vector<char> short_args;
 
         if(argument.length() > 0 && argument[0] != '-') {
-            m_test_directory = argv[1]; }
+            m_test_directory = argument; }
         else {
             if(argument.length() > 1 && argument[0] == '-' && argument[1] != '-') { // If current arg is short args
                 for(auto i = argument.cbegin() + 1 ; i != argument.end() ; ++i) {
